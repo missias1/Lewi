@@ -1,0 +1,80 @@
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease, height 0.3s ease;
+  height: 60vh;
+  box-sizing: border-box;
+  position: relative; /* Para posicionar o botão */
+}
+
+.card.mostrar-resposta {
+  background-color: #e0e0e0;
+}
+
+.card.expandido {
+  height: 100vh; /* Ocupa a tela inteira */
+  width: 100vw;
+  margin: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.card p {
+  font-size: 18px;
+  text-align: center;
+}
+
+.botao-expandir {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border: none;
+  background-color: transparent;
+}
+
+.icone-expandir {
+  font-size: 30px;
+  cursor: pointer;
+  top: 10px;
+  right: 10px;
+}
+
+.opcoes-container{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 12px;
+  left: 0px;
+  gap: 10px
+}
+
+
+.opcoes-btn button {
+  background-color: #282c34;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-left: 20px;
+}
+
+.opcoes-btn button:hover {
+  background-color: #004CBD;
+  color: white;
+}
+
+audio {
+  width: 30vw;
+}
+
+h3 {
+  text-align: center;
+}
