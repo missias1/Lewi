@@ -1,9 +1,15 @@
 import React from 'react';
-import VoiceRecorderTranscript from './VoiceRecorderTranscript';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LewiTematica from './Paginas/LewiTematica';
 
 const App = () => {
   return (
-    <VoiceRecorderTranscript />
+    <Router>
+      <Routes>
+        <Route path="/" element={<LewiTematica />} />
+      </Routes>
+    </Router>
+
   );
 };
 
