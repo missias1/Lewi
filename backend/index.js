@@ -7,7 +7,7 @@ const { exec } = require('child_process');
 const path = require('path');
 const multer = require('multer');
 
-const genAI = new GoogleGenerativeAI("AIzaSyDeFSQXq_SX1d2BkBCU8UWBfQyUBwndpeQ");
+const genAI = new GoogleGenerativeAI("");
 
 const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 
