@@ -67,13 +67,11 @@ function Card({ pergunta, resposta, proximaPergunta, modalidade }) {
         
         recognition.onstart = () => {
           mediaRecorder.start();
-          console.log('Transcrição iniciada.');
         };
 
           recognition.onresult = (event) => {
             
             const transcript = event.results[event.results.length - 1][0].transcript;
-            console.log('Resultado da transcrição:', transcript);
             setRecognizedText(prevText => prevText + ' ' + transcript);
 
         }

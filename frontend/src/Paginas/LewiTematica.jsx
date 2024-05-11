@@ -85,7 +85,6 @@ function LewiTematica() {
   };
 
   const handleChangeSelect = (event) => {
-    console.log(event.target[0].text)
 
     if(event.target[0].text == "Dificuldade"){
       setSelects(prevRespostas => ({

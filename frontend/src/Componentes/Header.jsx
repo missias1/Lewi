@@ -14,9 +14,6 @@ function Header({ pontuacao }) {
           <li>
             <Link to="/">Temático</Link>
           </li>
-          <li>
-            <Link to="/personalizado">Personalizado</Link>
-          </li>
         </ul>
       </nav>
 

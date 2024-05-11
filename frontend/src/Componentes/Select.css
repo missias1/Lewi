@@ -10,9 +10,9 @@
   font-weight: bold;
   border: 1px solid #ccc;
   border-radius: 4px;
-  appearance: none; /* Remove estilo padrão do navegador */
+  appearance: none; 
   background-color: #fff;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='5' viewBox='0 0 10 5' fill='%23000'><path d='M0 0L5 5L10 0z'/></svg>"); /* Seta personalizada */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='5' viewBox='0 0 10 5' fill='%23000'><path d='M0 0L5 5L10 0z'/></svg>");
   background-repeat: no-repeat;
   background-position: right 10px center;
   cursor: pointer;
@@ -20,8 +20,8 @@
 
 select:focus {
   outline: none;
-  border-color: #007CB2; /* Cor de destaque em foco */
-  box-shadow: 0 0 5px rgba(0, 124, 178, 0.5); /* Sombra suave em foco */
+  border-color: #007CB2;
+  box-shadow: 0 0 5px rgba(0, 124, 178, 0.5);
 }
 
 select option {

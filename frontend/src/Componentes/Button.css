@@ -10,17 +10,17 @@
 
 
 .sei-responder {
-  background-color: #4CAF50; /* Verde */
+  background-color: #4CAF50;
   color: white;
 }
 
 .acho-que-sei {
-  background-color: #FFC107; /* Amarelo */
+  background-color: #FFC107;
   color: black;
 }
 
 .nao-sei {
-  background-color: #9C27B0; /* Roxo */
+  background-color: #9C27B0;
   color: white;
 }
 

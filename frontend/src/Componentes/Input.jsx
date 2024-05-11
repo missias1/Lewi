@@ -7,8 +7,8 @@ const Input = ({ topic, onChange }) => {
       <input
         type="text"
         placeholder="Escreva o tópico que deseja ser questionado"
-        value={topic} // Exibe o valor do estado
-        onChange={onChange} // Chama a função de atualização do pai
+        value={topic}
+        onChange={onChange} 
       />
     </div>
   );
