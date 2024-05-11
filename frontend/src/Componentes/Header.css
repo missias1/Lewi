@@ -1,0 +1,50 @@
+header {
+  background-color: white;
+  padding: 5px 30px 5px 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo-container h1 {
+  margin-right: 10px;
+  color: #004CBD
+}
+
+.logo-container p {
+  margin-right: 10px;
+  color: #4C4C5E;
+  margin-left: 10px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+}
+
+nav a:hover {
+  color: #007bff; /* Cor de destaque no hover */
+}
+
+.pontuacao {
+  font-weight: bold;
+  color: #333; /* Cor do texto da pontuação */
+  margin-right: 70px;
+}
