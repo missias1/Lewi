@@ -12,8 +12,6 @@ async function GetFeedbackAnswer(pergunta, recognizedText){
       "data": command
     }
 
-    console.log(req);
-
     const response = await fetch('http://localhost:5000/api/transcricao', {
       method: 'POST',
       headers: {
@@ -29,10 +27,7 @@ async function GetFeedbackAnswer(pergunta, recognizedText){
       }
     }
     else {
-      console.log('Recebi a resposta no frontend');
       const data = await response.json();
-      console.log('SOU O DATAAA');
-      console.log(data)
       return {
         "response": data.response,
         "status": response.ok

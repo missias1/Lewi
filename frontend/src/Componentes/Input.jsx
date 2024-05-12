@@ -1,14 +1,14 @@
 import React from 'react';
 import './Input.css'
 
-const Input = ({ topic, onChange }) => {
+const Input = ({ topic, onChange, type }) => {
   return (
     <div className="input-topic">
       <input
-        type="text"
+        type={type}
         placeholder="Escreva o tópico que deseja ser questionado"
-        value={topic} // Exibe o valor do estado
-        onChange={onChange} // Chama a função de atualização do pai
+        value={topic}
+        onChange={onChange} 
       />
     </div>
   );

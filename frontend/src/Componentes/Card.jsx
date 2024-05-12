@@ -5,7 +5,7 @@ import { faExpand, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import GetFeedbackAnswer from '../Services/GetFeedbackAnswer';
 import Loading from './Loading';
 
-function Card({ pergunta, resposta, proximaPergunta, modalidade }) {
+function Card({ pergunta, resposta, proximaPergunta, isLoadingAnswer }) {
   const [hasProcessCompleted, setHasProcessCompleted] = useState(false);
   const [recording, setRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState(null);
@@ -27,6 +27,7 @@ function Card({ pergunta, resposta, proximaPergunta, modalidade }) {
   const handleClickCard = () => {
     setMostrarOpcoes(!mostrarOpcoes);
     setFixarOpcoes(!fixarOpcoes);
+    setVerResposta(false)
   };
 
   const handleClickVerResposta = (event) => {
@@ -67,13 +68,11 @@ function Card({ pergunta, resposta, proximaPergunta, modalidade }) {
         
         recognition.onstart = () => {
           mediaRecorder.start();
-          console.log('Transcrição iniciada.');
         };
 
           recognition.onresult = (event) => {
             
             const transcript = event.results[event.results.length - 1][0].transcript;
-            console.log('Resultado da transcrição:', transcript);
             setRecognizedText(prevText => prevText + ' ' + transcript);
 
         }
@@ -121,7 +120,7 @@ function Card({ pergunta, resposta, proximaPergunta, modalidade }) {
 
   return (
     <div className={`card ${mostrarOpcoes ? 'mostrar-resposta' : ''} ${expandir ? 'expandido' : ''}`} onClick={handleClickCard}>
-      {isLoading && <Loading />} 
+      {(isLoadingAnswer || isLoading) && <Loading />} 
       <h3>{pergunta}</h3>
       {fixarOpcoes && (
         <>

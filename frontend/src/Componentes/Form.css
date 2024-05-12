@@ -1,8 +1,8 @@
 .form-group {
   display: flex;
   align-items: center;
-  justify-content:baseline;
-  gap: 20px;
+  justify-content:flex-start;
+  gap: 10px;
   margin-left: 5px;
 }
 
@@ -11,6 +11,7 @@
   align-items: center;
   height: 100px;
   gap: 10px;
+  width: 25vw;
 }
 
 .btn-criar {
@@ -22,7 +23,6 @@
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.5s ease;
-  margin-left: 20px;
 }
 
 .btn-criar:hover {
@@ -33,4 +33,40 @@
 .resposta {
   color: #282c34;
   text-align: center;
+}
+
+
+.upload-label {
+  display: inline-block; 
+  font-size: 16px;
+  border: none;
+  transition: background-color 0.3s ease;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  margin-left: 40px;
+}
+
+.upload-label:hover {
+  background-color: #f0f0f0;
+}
+
+.uploaded-label {
+  display: inline-block; 
+  font-size: 16px;
+  border: none;
+  transition: background-color 0.3s ease;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #004CBD;
+  cursor: pointer;
+  margin-left: 40px;
+  color: #ccc;
+}
+
+.upload-label:hover {
+  background-color: #f0f0f0;
 }

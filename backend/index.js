@@ -7,7 +7,7 @@ const { exec } = require('child_process');
 const path = require('path');
 const multer = require('multer');
 
-const genAI = new GoogleGenerativeAI("AIzaSyDeFSQXq_SX1d2BkBCU8UWBfQyUBwndpeQ");
+const genAI = new GoogleGenerativeAI("");
 
 const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 
@@ -27,7 +27,32 @@ const storage = multer.diskStorage({
     }
   });
   
-  const upload = multer({ storage: storage });
+  const upload = multer({ storage: storage, fileSize: 10485760 });
+
+  app.post('/api/file',  upload.single('file'), async (req, res) => {
+    try {
+        if (!req.file) {
+          return res.status(400).json({ error: 'Nenhum arquivo enviado.' });
+        } 
+        const uploadedFile = req.file;
+
+        const pythonScriptPath = path.join(__dirname, 'extractFile.py');
+        const command = `py ${pythonScriptPath} "${uploadedFile.path}" "${req.body.modalidade}" "${req.body.quantidade}" "${req.body.dificuldade}" "${req.body.input}"`;
+  
+        exec(command, (error, stdout, stderr) => {
+            if (error) {
+              res.status(500).send('Erro ao processar o arquivo PDF.');
+              return;
+            }
+            const resultado = stdout;
+            return res.json({response: resultado});
+          });
+  
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao converter áudio em texto.' });
+    }
+  
+  });
 
   app.post('/api/transcricao',  upload.single('file'), async (req, res) => {
     try {
@@ -50,16 +75,12 @@ const storage = multer.diskStorage({
           "sugestao": ""
         }
         `
-        console.log(command)
         
         const response = await chat.sendMessage(command);
-  
-        console.log(response.response.text());
   
         return res.json({response: response.response.text()})
   
     } catch (error) {
-        console.error('Erro em obter feedback da resposta do usuário', error);
         res.status(500).json({ error: 'Erro ao converter áudio em texto.' });
     }
   
@@ -68,12 +89,10 @@ const storage = multer.diskStorage({
 app.post('/api/quesions-by-text',  upload.single('file'), async (req, res) => {
     try {
 
-        console.log("ENTREI NO QUESTIONS BY TEXT")
-
         const topic = req.body.data.topic;
         const selects = req.body.data.selects;
 
-        const command = `Você é um especialista no assunto ${topic}. Gere a quantidade de ${selects.quantidade} perguntas na modalidade de ${selects.modalidade}. Quero que o nível das perguntas sejam de nível ${selects.dificuldade} para que eu possa utilizar em um flashCard. Quero a resposta em formato json, mas sem especificar no retorno que é um json. Quero que a resposta só contenha o array dos objetos igual ao formato abaixo:
+        const command = `Você é um especialista no assunto ${topic}. Gere a quantidade de ${selects.quantidade} perguntas na modalidade de ${selects.modalidade}. Quero que o nível das perguntas sejam de nível ${selects.dificuldade} para que eu possa utilizar em um flashCard. As perguntas precisam ser relevantes e interessantes para o aprendizado. Quero a resposta em formato json, mas sem especificar no retorno que é um json. Quero que a resposta só contenha o array dos objetos igual ao formato abaixo:
         
         Se a Modalidade for pergunta e resposta, esse é um exemplo da estrtura da resposta:
         [
@@ -90,10 +109,8 @@ app.post('/api/quesions-by-text',  upload.single('file'), async (req, res) => {
             "resposta": ""
           }
         ]
-        Antes de enviar a resposta, avalie também sua resposta relacionada a pergunta como se fosse um segundo analista corrigindo a sua propria resposta.
+        Antes de enviar a resposta, avalie também sua resposta relacionada a pergunta como se fosse um segundo analista corrigindo a sua propria resposta. A resposta precisa ser completa e fornecer entendimento sobre a pergunta para o aluno de forma didática.
         .`
-        
-        console.log(command)
         
         const chat = model.startChat({
            history: []
@@ -101,17 +118,13 @@ app.post('/api/quesions-by-text',  upload.single('file'), async (req, res) => {
         
         const response = await chat.sendMessage(command);
 
-        console.log(response.response.text());
-
         return res.json({response: response.response.text()})
 
     } catch (error) {
-        console.error('Erro ao criar perguntas:', error);
         res.status(500).json({ error: 'Erro ao criar perguntas:' });
     }
 
 });
-
 
 app.listen(port, () => {
     console.log(`Servidor está ouvindo na porta ${port}`);

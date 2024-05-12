@@ -40,11 +40,11 @@ nav a {
 }
 
 nav a:hover {
-  color: #007bff; /* Cor de destaque no hover */
+  color: #007bff;
 }
 
 .pontuacao {
   font-weight: bold;
-  color: #333; /* Cor do texto da pontuação */
+  color: #333;
   margin-right: 70px;
 }

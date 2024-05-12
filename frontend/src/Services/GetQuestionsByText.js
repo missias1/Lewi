@@ -9,7 +9,6 @@ async function GetQuestionsByText(inputText, selects){
     const req = {
       "data": command
     }
-    console.log(JSON.stringify(req));
 
     const response = await fetch('http://localhost:5000/api/quesions-by-text', {
       method: 'POST',

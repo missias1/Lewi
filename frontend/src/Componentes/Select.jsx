@@ -1,15 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Select.css'
 
-const Select = ({ options, placeholder, handleChangeSelect, selectedOption }) => {
-  //const [selectedOption, setSelectedOption] = useState('');
-
-  /*const handleChange = (event) => {
-    setSelectedOption(event.target.value);
-  };*/
+const Select = ({ options, placeholder, handleChangeSelect, selectedOption, posicao }) => {
 
   return (
-    <div className="select-container" >
+    <div className={`select-container ${posicao}`} >
       <select value={selectedOption} onChange={handleChangeSelect}>
         <option value="" disabled>{placeholder}</option>
         {options.map((option) => (
