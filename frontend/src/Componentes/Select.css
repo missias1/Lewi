@@ -33,3 +33,15 @@ select option {
 select option:checked {
   background-color: #eee;
 }
+
+.primeiro {
+  width: 10vw;
+}
+
+.segundo {
+  width: 20vw;
+}
+
+.terceiro {
+  width: 8vw;
+}

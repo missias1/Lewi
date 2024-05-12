@@ -8,7 +8,7 @@
   transition: background-color 0.3s ease, height 0.3s ease;
   height: 60vh;
   box-sizing: border-box;
-  position: relative; /* Para posicionar o botão */
+  position: relative;
 }
 
 .card.mostrar-resposta {
@@ -16,7 +16,7 @@
 }
 
 .card.expandido {
-  height: 100vh; /* Ocupa a tela inteira */
+  height: 100vh;
   width: 100vw;
   margin: 0;
   position: fixed;
