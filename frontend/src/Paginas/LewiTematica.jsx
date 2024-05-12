@@ -6,6 +6,7 @@ import Select from '../Componentes/Select';
 import Input from '../Componentes/Input';
 import '../Componentes/Form.css'
 import GetQuestionsByText from '../Services/GetQuestionsByText';
+import GetQuestionsByFile from '../Services/GetQuestionsByFile';
 
 function LewiTematica() {
   const [respostas, setRespostas] = useState({
@@ -20,34 +21,48 @@ function LewiTematica() {
   });
   const [topic, setTopic] = useState('');
   const [data, setData] = useState([{
-    pergunta: "Qual a capital do Brazil?",
-    resposta: "Brasilia"
+    pergunta: "Qual a capital do Espirito Santo?",
+    resposta: "Vitoria"
   }, 
   {
-    pergunta: "Qual a capital do Espirito Santo?",
+    pergunta: "Qual a capital do Amazonas?",
     resposta: "Vitoria"
   },
   {
     pergunta: "Qual a capital da Bahia?",
     resposta: "Salvador"
   }]);
-
+  const [file, setFile] = useState(null);
   const [controllerQuestion, setControllerQuestion] = useState(0);
-
+  const [isLoading, setIsLoading] = useState(null);
 
   const handleTopicChange = (event) => {
     setTopic(event.target.value);
   };
+
   const handleAIResponse = async () => {
 
-    setData([{
-      pergunta: "",
-      resposta: ""
-    }]);
+    setIsLoading(true);
 
-    try{
-      const questionsByAI = await GetQuestionsByText(topic, selects);
-      const jsonQuestions = JSON.parse(questionsByAI.response);
+    if(file == null){
+      await getAIResponseNoFile();
+    } else{
+      await getAIResponseFile();
+    }
+  };
+
+  const getAIResponseFile = async () => {
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('modalidade', selects.modalidade);
+      formData.append('dificuldade', selects.dificuldade);
+      formData.append('quantidade', selects.quantidade);
+
+      const questionsByAI = await GetQuestionsByFile(formData);
+
+      const jsonQuestions = JSON.parse(questionsByAI.response)
 
       if(questionsByAI.status && typeof(jsonQuestions) === 'object'){
         setData(jsonQuestions);
@@ -60,9 +75,37 @@ function LewiTematica() {
       setData([error])
 
     }
+    setIsLoading(false);
   };
 
-  // Funções de clique para cada botão
+  const getAIResponseNoFile = async () => {
+
+    setData([{
+      pergunta: "",
+      resposta: ""
+    }]);
+
+    try {
+      const questionsByAI = await GetQuestionsByText(topic, selects);
+      const jsonQuestions = JSON.parse(questionsByAI.response);
+
+      if(questionsByAI.status && typeof(jsonQuestions) === 'object'){
+        setData(jsonQuestions);
+      }
+    } catch {
+      const error = {
+        pergunta: "Houve um erro ao solicitar a criação de perguntas",
+        resposta: "Tente mais tarde"
+      }
+      setData([error])
+    }
+    setIsLoading(false);
+  };
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
   const handleSeiResponder = () => {
     setRespostas(prevRespostas => ({
       ...prevRespostas,
@@ -116,13 +159,12 @@ function LewiTematica() {
 
   }
 
-  // Calculando a pontuação (adapte a lógica conforme necessário)
   const pontuacao = respostas.seiResponder * 2 + respostas.achoQueSei;
 
   return (
     <>
       <Header pontuacao={pontuacao} />
-      <Card pergunta={data[controllerQuestion].pergunta} resposta={data[controllerQuestion].resposta } proximaPergunta={proximaPergunta} modalidade={selects.modalidade} />
+      <Card pergunta={data[controllerQuestion].pergunta} resposta={data[controllerQuestion].resposta } proximaPergunta={proximaPergunta} modalidade={selects.modalidade} isLoadingAnswer={isLoading} />
       <div className="botoes">
         <Button type="sei-responder" onClick={handleSeiResponder}>
           Sei responder
@@ -142,21 +184,27 @@ function LewiTematica() {
               placeholder="Dificuldade"
               handleChangeSelect={handleChangeSelect}
               selectedOption={selects.dificuldade}
+              posicao="primeiro"
             />
             <Select
               options={['Pergunta e Resposta', 'Verdadeiro e Falso']}
               placeholder="Modalidade"
               handleChangeSelect={handleChangeSelect}
               selectedOption={selects.modalidade}
+              posicao="segundo"
             />
             <Select
               options={['5', '10', '15', '20']}
               placeholder="Quantidade"
               handleChangeSelect={handleChangeSelect}
               selectedOption={selects.quantidade}
+              posicao="terceiro"
             />
           </div>
-        <Input topic={topic} onChange={handleTopicChange} />
+        <Input topic={topic} onChange={handleTopicChange} type="text" />
+
+        <label htmlFor="fileInput" className={file == null ? 'upload-label' : 'uploaded-label' }> {file != null ? `Arquivo carregado` : `Carregar arquivo` } </label>
+          <input type="file" id="fileInput" onChange={handleFileChange} hidden/>
 
         <Button type="btn-criar" onClick={handleAIResponse} >
           {"+ Criar"}
