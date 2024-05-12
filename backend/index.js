@@ -92,7 +92,7 @@ app.post('/api/quesions-by-text',  upload.single('file'), async (req, res) => {
         const topic = req.body.data.topic;
         const selects = req.body.data.selects;
 
-        const command = `Você é um especialista no assunto ${topic}. Gere a quantidade de ${selects.quantidade} perguntas na modalidade de ${selects.modalidade}. Quero que o nível das perguntas sejam de nível ${selects.dificuldade} para que eu possa utilizar em um flashCard. Quero a resposta em formato json, mas sem especificar no retorno que é um json. Quero que a resposta só contenha o array dos objetos igual ao formato abaixo:
+        const command = `Você é um especialista no assunto ${topic}. Gere a quantidade de ${selects.quantidade} perguntas na modalidade de ${selects.modalidade}. Quero que o nível das perguntas sejam de nível ${selects.dificuldade} para que eu possa utilizar em um flashCard. As perguntas precisam ser relevantes e interessantes para o aprendizado. Quero a resposta em formato json, mas sem especificar no retorno que é um json. Quero que a resposta só contenha o array dos objetos igual ao formato abaixo:
         
         Se a Modalidade for pergunta e resposta, esse é um exemplo da estrtura da resposta:
         [

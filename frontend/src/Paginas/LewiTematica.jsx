@@ -80,11 +80,6 @@ function LewiTematica() {
 
   const getAIResponseNoFile = async () => {
 
-    setData([{
-      pergunta: "",
-      resposta: ""
-    }]);
-
     try {
       const questionsByAI = await GetQuestionsByText(topic, selects);
       const jsonQuestions = JSON.parse(questionsByAI.response);
