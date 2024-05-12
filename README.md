@@ -1,5 +1,5 @@
 ﻿## Lewi: Elevando seu aprendizado com IA 🧠 🚀
-**Lewi** é uma aplicação web inovadora que utiliza o poder da IA generativa para te ajudar a aprender qualquer assunto de forma mais eficiente e divertida, através do conceito de recordação ativa. 
+**Lewi** é uma aplicação web inovadora que utiliza o poder da IA generativa para te ajudar a aprender qualquer assunto de forma mais eficiente e divertida, através do conceito de recordação ativa. Lewi é o projeto construído durante a imersão da Alura em parceria com o Google sobre IA Generativa.
 
 ### 🎯 Objetivo:
 
